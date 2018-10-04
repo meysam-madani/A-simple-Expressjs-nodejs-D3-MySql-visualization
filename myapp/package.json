@@ -1,0 +1,23 @@
+{
+  "name": "expressvis",
+  "version": "1.0.0",
+  "description": "A simple visualization in Express.js and D3.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "D3",
+    "Visualization",
+    "Node.js",
+    "Express.js",
+    "REST"
+  ],
+  "author": "Meysam Madani",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "http": "0.0.0",
+    "mysql": "^2.16.0"
+  }
+}

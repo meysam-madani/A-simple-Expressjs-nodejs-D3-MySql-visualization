@@ -1,0 +1,95 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>A simple Expressjs (nodejs)/D3/MySql visualization</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+  h2{
+    color:#622  ;
+  }
+  .cde{
+    background-color: #ffe;
+    border:1px solid #444;
+    padding:5px;
+    color:#226;
+  }
+  .in-link{
+    color:#118;
+    padding:1px;
+  }
+  .li-head{
+    list-style: none;
+    font-weight: bold;
+    color: #522;
+    margin-left:-18px;
+  }
+  ul{
+    margin-left:25px;
+  }
+
+  label {
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <h1>A simple Expressjs (nodejs)/D3/MySql visualization</h1>
+
+  <div id="description" style="width:40%;float:left">
+    <h2>How to do that?</h2>
+    <ul>
+      <li class="li-head">ExpressJs</li>
+      <li>Create a folder <span class="in-link">myapp</span>, go to there.</li>
+      <li> Install ExpressJs
+<pre class="cde">
+npm init
+npm install express --save</pre>
+        You can see <a class="in-link" href="http://expressjs.com/en/starter/installing.html">ExpressJs Installation</a> for more information.</li>
+      <li> Now create this file  <span class="in-link">index.html</span></li>
+      <li>
+        Create  <span class="in-link">simplevis.js</span> and copy the codes there.
+      </li>
+      <li class="li-head">D3 and DB</li>
+      <li>Take a look at Donut Canvas <a class="in-link" href="https://bl.ocks.org/mbostock/2394b23da1994fc202e1">https://bl.ocks.org/mbostock/2394b23da1994fc202e1</a></li>
+      <li>Take a look at data in the page bottom, import it to a  <span class="in-link">age_population</span> table in the <span class="in-link">test</span> database</li>
+      <li>Create a js file <span class="in-link">donut.js</span> in Folder (create it) <span class="in-link">static/js/</span>. We call it below.
+      </li>
+      Go to a folder and Install <b>node-mysqldb</b> and <b>HTTP</b> by
+<pre class="cde">
+npm install mysql
+npm install http</pre>
+    </li>
+    <li class="li-head">Integration</li>
+    <li>Take a look at <span class="in-link">simplevis.js</span>, we have two routes there 
+<pre class="cde">
+app.get('/data.json', (req, res) => {
+  res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  con.query("SELECT * FROM `age_population`", function (err, result) {
+    res.write(JSON.stringify(result));
+    res.end();
+  });
+})</pre>
+Is for fetching data and sending as json request in the <span class="in-link">data.json</span> url.
+Also, 
+<pre class="cde">
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
+})</pre>
+render the <span class="in-link">index.html</span> to serve in <span class="in-link">/</span> address.
+    <li>Start project
+      <pre class="cde">node simplevis.js</pre>
+    </li>
+    <li>
+      Go to <span class="in-link">http://127.0.0.1:3000/</span>. 
+      Also, you can check <span class="in-link">http://127.0.0.1:3000/data.json</span> path for the json data. 
+    </li>
+    </ul>
+  </div>
+
+  <h2>Donut View</h2>
+  <div id="container" style="margin-left:60px; width:50%;float:right">
+    <canvas width="700" height="700"></canvas>
+  </div>
+  <script src="js/donut.js"></script>
+
+</body>
